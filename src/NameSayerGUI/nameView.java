@@ -16,6 +16,8 @@ import java.awt.image.ImagingOpException;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.List;
+
 
 public class nameView implements Initializable {
 
@@ -26,6 +28,7 @@ public class nameView implements Initializable {
     public ImageView forward;
     public ImageView backward;
     //public ListView<Name>;
+    public List<String> listOfNames;
 
 
     /* TODO: add compare functionallity, ability to report quality of recordings, ability to change mic level
@@ -92,5 +95,10 @@ public class nameView implements Initializable {
         } catch(IOException e) {
             System.out.println("Error loading complaint log");
         }
+    }
+
+    //Used in the MenuController to pass the selected names into the nameView
+    public void setNameList(List<String> nameList){
+        listOfNames = nameList;
     }
 }
