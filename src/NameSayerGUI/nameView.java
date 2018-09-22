@@ -2,6 +2,8 @@ package NameSayerGUI;
 
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
@@ -11,7 +13,7 @@ import javafx.scene.media.MediaPlayer;
 
 import java.awt.*;
 import java.awt.image.ImagingOpException;
-import java.io.File;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -73,5 +75,22 @@ public class nameView implements Initializable {
 
     public void changeNameVersion() {
         // currentName = new Name(listView.getSelection)
+    }
+
+    public void report() {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to report this file for bad quality?", ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText("");
+        alert.showAndWait();
+
+
+        File errorlog = new File("names/error.txt");
+        try {
+            Writer output = new BufferedWriter(new FileWriter(errorlog, true));
+            //output.append(currentName);
+            output.close();
+        } catch(IOException e) {
+            System.out.println("Error loading complaint log");
+        }
     }
 }
