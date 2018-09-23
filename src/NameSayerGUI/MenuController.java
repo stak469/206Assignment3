@@ -45,7 +45,7 @@ public class MenuController implements Initializable {
 
     public void setUp(){
         //Lists all the names of the files in the names database but removing the .wav extension
-        ProcessBuilder listBuilder = new ProcessBuilder("/bin/bash", "-c", "ls names -1 | sed -n 's/\\.wav$//p'");
+        ProcessBuilder listBuilder = new ProcessBuilder("/bin/bash", "-c", "ls names -1 | sed 's/.*_//' | sed -n 's/\\.wav$//p'");
         try{
             Process listProcess = listBuilder.start();
 
@@ -53,9 +53,17 @@ public class MenuController implements Initializable {
 
             BufferedReader stdoutBuffered = new BufferedReader(new InputStreamReader(stdout));
             String line = null;
+            int i = 1;
             while((line = stdoutBuffered.readLine())!= null){
-                listName.add(line);
+                if(listName.contains(line)){
+                    listName.add(line + "(" + Integer.toString(i) + ")");
+                    i++;
+                }else {
+                    listName.add(line);
+                    i=1;
+                }
             }
+            Collections.sort(listName);
         }catch(Exception e){
 
         }
