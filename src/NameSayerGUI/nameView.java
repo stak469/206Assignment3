@@ -60,14 +60,21 @@ public class nameView implements Initializable {
     }
 
     public void play() {
-        namePlayer.play();
-        System.out.println("play clicked");
+        ProcessBuilder builder = new ProcessBuilder("bash", "-c",
+                "ffplay -nodisp names/se206_17-5-2018_17-20-26_Patricia.wav");
+        try {
+            Process process = builder.start();
+            process.waitFor();
+
+        } catch (Exception e) {
+            System.out.println("failed to play file");
+        }
     }
 
 
     public void record() {
         ProcessBuilder builder = new ProcessBuilder("bash", "-c",
-                "ffmpeg -f alsa -ac 2 -i pulse -acodec wav -t 00:00:05 -y names/name.wav &> /dev/null");
+                "ffmpeg alsa -ac 2 -i pulse -acodec wav -t 00:00:05 -y names/name.wav &> /dev/null");
         try {
             Process process = builder.start();
             process.waitFor();
@@ -109,8 +116,6 @@ public class nameView implements Initializable {
     public void update(String name) {
         currentName = name;
         nameLabel.setText(currentName);
-        Media nameFile = new Media(new File("names/" + currentName +".wav").toURI().toString());
-        namePlayer = new MediaPlayer(nameFile);
     }
 
 }
