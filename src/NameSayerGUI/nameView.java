@@ -61,7 +61,7 @@ public class nameView implements Initializable {
 
     public void play() {
         ProcessBuilder builder = new ProcessBuilder("bash", "-c",
-                "ffplay -nodisp names/se206_17-5-2018_17-20-26_Patricia.wav");
+                "ffplay -nodisp names/se206_17-5-2018_17-20-26_Patricia.wav -autoexit");
         try {
             Process process = builder.start();
             process.waitFor();
