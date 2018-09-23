@@ -23,6 +23,9 @@ public class nameView implements Initializable {
 
     // private NameList nameList;
     private String currentName;
+    private String fileName;
+
+
     public Label nameLabel;
     private MediaPlayer namePlayer;
     public ImageView forward;
@@ -60,8 +63,9 @@ public class nameView implements Initializable {
     }
 
     public void play() {
+        String cmd = "ffplay -nodisp " + fileName + " -autoexit";
         ProcessBuilder builder = new ProcessBuilder("bash", "-c",
-                "ffplay -nodisp names/se206_17-5-2018_17-20-26_Patricia.wav -autoexit");
+                cmd);
         try {
             Process process = builder.start();
             process.waitFor();
@@ -116,6 +120,21 @@ public class nameView implements Initializable {
     public void update(String name) {
         currentName = name;
         nameLabel.setText(currentName);
+
+        String nameCommand = "ls names/*" + currentName + ".wav";
+
+        ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", nameCommand);
+        try {
+            Process process = builder.start();
+            InputStream stdout = process.getInputStream();
+            BufferedReader stdoutBuffered = new BufferedReader(new InputStreamReader(stdout));
+            String line = null;
+            while ((line = stdoutBuffered.readLine()) != null) {
+                fileName = line;
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+        }
     }
 
 }
