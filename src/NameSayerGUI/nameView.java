@@ -74,7 +74,7 @@ public class nameView implements Initializable {
 
     public void record() {
         ProcessBuilder builder = new ProcessBuilder("bash", "-c",
-                "ffmpeg alsa -ac 2 -i pulse -acodec wav -t 00:00:05 -y names/name.wav &> /dev/null");
+                "ffmpeg -f alsa -i default  -t 5 names/name.wav");
         try {
             Process process = builder.start();
             process.waitFor();
