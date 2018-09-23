@@ -100,6 +100,10 @@ public class MenuController implements Initializable {
         }catch(IOException e){
 
         }
+
+        Parent p = loader.getRoot();
+
+
         nameView nameview = loader.getController();
         if(random){
             Collections.shuffle(selectedNameList);
@@ -108,7 +112,7 @@ public class MenuController implements Initializable {
         nameview.setNameList(selectedNameList);
 
 
-        window.setScene(nameViewScene);
+        window.setScene(new Scene(p));
         window.show();
     }
 }
