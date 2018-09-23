@@ -1,7 +1,12 @@
 package NameSayerGUI;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -10,14 +15,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 
-import java.awt.*;
+
 import java.awt.image.ImagingOpException;
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.List;
 
 
@@ -160,6 +164,17 @@ public class nameView implements Initializable {
         }catch (Exception e){
             System.out.println("Failed to test microphone");
         }
+    }
+
+    public void changeSceneToMenu(ActionEvent event) throws IOException{
+        Parent MenuParent = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+        Scene MenuScene = new Scene(MenuParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(MenuScene);
+        window.show();
+
     }
 
 }
