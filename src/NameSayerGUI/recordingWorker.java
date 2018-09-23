@@ -39,6 +39,7 @@ public class recordingWorker extends SwingWorker<Void,Void> {
             @Override
             public void run() {
                 _view.getAttempts();
+                _view.setDone();
             }
         });
     }

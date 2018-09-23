@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -30,14 +31,15 @@ public class nameView implements Initializable {
     // private NameList nameList;
     private String currentName;
     private String fileName;
-
-
     public Label nameLabel;
-    private MediaPlayer namePlayer;
+
     public ImageView forward;
     public ImageView backward;
+    public ImageView playIcon;
+    public Label recordingLabel;
+
     public ListView<String> listView;
-    public List<String> listOfNames;
+
     private NameListModel namesModel;
 
 
@@ -66,6 +68,7 @@ public class nameView implements Initializable {
 
             }
         });
+
     }
 
     public void play() {
@@ -89,16 +92,19 @@ public class nameView implements Initializable {
 
 
     public void record() {
-
+        recordingLabel.setTextFill(Color.ORANGE);
+        recordingLabel.setText("Recording...");
         new File("names/" + currentName).mkdir();
         File directory = new File("names/" + currentName);
-        int fileCount=directory.list().length;
+        int fileCount=directory.list().length + 1;
 
         //Use a swingworker to prevent the GUI from freezing when recording the attempt.
-        new recordingWorker(currentName,fileCount,this).execute();
+        new recordingWorker(currentName,fileCount, this).execute();
         System.out.println("record clicked");
 
         getAttempts();
+        //recordingLabel.setTextFill(Color.GREEN);
+       // recordingLabel.setText("Recording Complete");
     }
 
     public void report() {
@@ -176,5 +182,11 @@ public class nameView implements Initializable {
         window.show();
 
     }
+
+    public void setDone() {
+        recordingLabel.setText("Recording Complete");
+        recordingLabel.setTextFill(Color.GREEN);
+    }
+
 
 }
