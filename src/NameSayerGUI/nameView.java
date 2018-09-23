@@ -134,8 +134,14 @@ public class nameView implements Initializable {
         currentName = name;
         nameLabel.setText(currentName);
 
-        String nameCommand = "ls names/*" + currentName + ".wav";
+        String nameCommand;
 
+        if(currentName.contains("(")){
+            nameCommand = "ls names/*" + currentName.substring(0,currentName.length()-3) + ".wav | sed -n '" +
+                    currentName.charAt(currentName.length()-2) + "{p;q}'";
+        }else {
+            nameCommand = "ls names/*" + currentName + ".wav ";
+        }
         ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", nameCommand);
         try {
             Process process = builder.start();
