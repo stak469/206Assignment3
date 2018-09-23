@@ -65,37 +65,22 @@ public class nameView implements Initializable {
     }
 
     public void play() {
-        String cmd = "ffplay -nodisp " + fileName + " -autoexit";
-        ProcessBuilder builder = new ProcessBuilder("bash", "-c",
-                cmd);
-        try {
-            Process process = builder.start();
-            process.waitFor();
-
-        } catch (Exception e) {
-            System.out.println("failed to play file");
-        }
+        //Use swingworker to prevent the GUI from freezing when playing the recording.
+        new playWorker(fileName).execute();
     }
 
     public void playAttempt() {
         String name = "names/" + currentName + "/" + listView.getSelectionModel().getSelectedItem();
-        System.out.println(name);
-        String cmd = "ffplay -nodisp " + name + " -autoexit";
-        ProcessBuilder builder = new ProcessBuilder("bash", "-c",
-                cmd);
-        try {
-            Process process = builder.start();
-            process.waitFor();
 
-        } catch (Exception e) {
-            System.out.println("failed to play file");
-        }
+        System.out.println(name);
+        //Use swingworker to prevent the GUI from freezing when playing the recording.
+        new playAttemptWorker(name).execute();
     }
 
     public void delete() {
         String name = "names/" + currentName + "/" + listView.getSelectionModel().getSelectedItem();
-        new File(name).delete();
-        getAttempts();
+        //Use swingworker to prevent the GUI from freezing when deleting an attempt recording.
+        new deleteWorker(name,this).execute();
     }
 
 
@@ -104,17 +89,9 @@ public class nameView implements Initializable {
         new File("names/" + currentName).mkdir();
         File directory = new File("names/" + currentName);
         int fileCount=directory.list().length;
-        String cmd = "ffmpeg -f alsa -i default  -t 5 names/" + currentName + "/attempt" + fileCount + ".wav";
 
-
-        ProcessBuilder builder = new ProcessBuilder("bash", "-c",
-                cmd);
-        try {
-            Process process = builder.start();
-            process.waitFor();
-
-        } catch (Exception e) {
-        }
+        //Use a swingworker to prevent the GUI from freezing when recording the attempt.
+        new recordingWorker(currentName,fileCount,this).execute();
         System.out.println("record clicked");
 
         getAttempts();
