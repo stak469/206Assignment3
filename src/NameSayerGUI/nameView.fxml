@@ -45,6 +45,6 @@
       </Label>
       <Button layoutX="389.0" layoutY="243.0" mnemonicParsing="false" onAction="#playAttempt" text="Play attempt" />
       <Button layoutX="389.0" layoutY="200.0" mnemonicParsing="false" onAction="#testMic" text="Test Microphone" />
-      <Label layoutX="457.0" layoutY="11.0" onMouseClicked="#newNames" style="-fx-background-color: #d1edce; -fx-border-color: #c1c1c1;" text="Choose new names" />
+      <Label layoutX="457.0" layoutY="11.0" style="-fx-background-color: #d1edce; -fx-border-color: #c1c1c1;" text="Choose new names" />
    </children>
 </AnchorPane>
