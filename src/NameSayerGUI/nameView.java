@@ -175,4 +175,14 @@ public class nameView implements Initializable {
         }
     }
 
+    public void testMic(){
+        ProcessBuilder micBuilder = new ProcessBuilder("/bin/bash", "-c", "pavucontrol");
+        try {
+            Process micProcess = micBuilder.start();
+            micProcess.waitFor();
+        }catch (Exception e){
+            System.out.println("Failed to test microphone");
+        }
+    }
+
 }
