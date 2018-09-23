@@ -1,5 +1,7 @@
 package NameSayerGUI;
 
+import javafx.application.Platform;
+
 import javax.swing.*;
 
 public class recordingWorker extends SwingWorker<Void,Void> {
@@ -33,6 +35,11 @@ public class recordingWorker extends SwingWorker<Void,Void> {
 
     @Override
     public void done(){
-        _view.getAttempts();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                _view.getAttempts();
+            }
+        });
     }
 }

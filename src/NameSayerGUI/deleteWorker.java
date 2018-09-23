@@ -1,5 +1,7 @@
 package NameSayerGUI;
 
+import javafx.application.Platform;
+
 import javax.swing.*;
 import java.io.File;
 
@@ -21,6 +23,11 @@ public class deleteWorker extends SwingWorker<Void,Void> {
 
     @Override
     public void done(){
-        _view.getAttempts();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                _view.getAttempts();
+            }
+        });
     }
 }
