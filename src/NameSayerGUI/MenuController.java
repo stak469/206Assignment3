@@ -56,8 +56,17 @@ public class MenuController implements Initializable {
             int i = 1;
             while((line = stdoutBuffered.readLine())!= null){
                 if(listName.contains(line)){
+                    for(String name : listName){
+                        if(name == line){
+                            i++;
+                        }else if (name.contains("(")){
+                            if(name.substring(0,name.length()-3).equals(line)){
+                                i++;
+                            }
+                        }
+                    }
                     listName.add(line + "(" + Integer.toString(i) + ")");
-                    i++;
+                    i=1;
                 }else {
                     listName.add(line);
                     i=1;
