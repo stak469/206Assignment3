@@ -78,8 +78,6 @@ public class nameView implements Initializable {
 
     public void playAttempt() {
         String name = "names/" + currentName + "/" + listView.getSelectionModel().getSelectedItem();
-
-        System.out.println(name);
         //Use swingworker to prevent the GUI from freezing when playing the recording.
         new playAttemptWorker(name).execute();
     }
