@@ -77,6 +77,27 @@ public class nameView implements Initializable {
         }
     }
 
+    public void playAttempt() {
+        String name = "names/" + currentName + "/" + listView.getSelectionModel().getSelectedItem();
+        System.out.println(name);
+        String cmd = "ffplay -nodisp " + name + " -autoexit";
+        ProcessBuilder builder = new ProcessBuilder("bash", "-c",
+                cmd);
+        try {
+            Process process = builder.start();
+            process.waitFor();
+
+        } catch (Exception e) {
+            System.out.println("failed to play file");
+        }
+    }
+
+    public void delete() {
+        String name = "names/" + currentName + "/" + listView.getSelectionModel().getSelectedItem();
+        new File(name).delete();
+        getAttempts();
+    }
+
 
     public void record() {
 
@@ -97,10 +118,6 @@ public class nameView implements Initializable {
         System.out.println("record clicked");
 
         getAttempts();
-    }
-
-    public void changeNameVersion() {
-        //currentName = asd
     }
 
     public void report() {
