@@ -37,13 +37,13 @@
       </ImageView>
       <ListView fx:id="listView" layoutX="221.0" layoutY="171.0" prefHeight="143.0" prefWidth="150.0" />
       <Label layoutX="229.0" layoutY="154.0" text="Your Attempts:" />
-      <Button fx:id="selectButton" layoutX="390.0" layoutY="284.0" mnemonicParsing="false" onAction="#changeNameVersion" text="Delete" />
+      <Button fx:id="selectButton" layoutX="390.0" layoutY="284.0" mnemonicParsing="false" onAction="#delete" text="Delete" />
       <Label layoutX="14.0" layoutY="379.0" onMouseClicked="#report" text="Click here to report a recording of low quality">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Button layoutX="389.0" layoutY="243.0" mnemonicParsing="false" text="Play attempt" />
+      <Button layoutX="389.0" layoutY="243.0" mnemonicParsing="false" onAction="#playAttempt" text="Play attempt" />
       <Button layoutX="389.0" layoutY="200.0" mnemonicParsing="false" onAction="#testMic" text="Test Microphone" />
    </children>
 </AnchorPane>
