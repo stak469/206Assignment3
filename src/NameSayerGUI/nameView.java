@@ -15,6 +15,8 @@ import java.awt.*;
 import java.awt.image.ImagingOpException;
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.List;
 
@@ -30,13 +32,13 @@ public class nameView implements Initializable {
     private MediaPlayer namePlayer;
     public ImageView forward;
     public ImageView backward;
-    //public ListView<Name>;
+    public ListView<String> listView;
     public List<String> listOfNames;
     private NameListModel namesModel;
 
 
-    /* TODO: add compare functionallity, ability to report quality of recordings, ability to change mic level
-        TODO: add return to menu.
+    /* TODO: add compare functionallity, ability to change mic level, TODO: add return to menu.
+
 
 
      */
@@ -77,8 +79,15 @@ public class nameView implements Initializable {
 
 
     public void record() {
+
+        new File("names/" + currentName).mkdir();
+        File directory = new File("names/" + currentName);
+        int fileCount=directory.list().length;
+        String cmd = "ffmpeg -f alsa -i default  -t 5 names/" + currentName + "/attempt" + fileCount + ".wav";
+
+
         ProcessBuilder builder = new ProcessBuilder("bash", "-c",
-                "ffmpeg -f alsa -i default  -t 5 names/name.wav");
+                cmd);
         try {
             Process process = builder.start();
             process.waitFor();
@@ -86,6 +95,8 @@ public class nameView implements Initializable {
         } catch (Exception e) {
         }
         System.out.println("record clicked");
+
+        getAttempts();
     }
 
     public void changeNameVersion() {
@@ -134,6 +145,16 @@ public class nameView implements Initializable {
             }
         } catch (Exception e) {
             System.out.println("error");
+        }
+        getAttempts();
+    }
+
+    public void getAttempts() {
+        if (new File("names/" + currentName).exists()) {
+            File attempts = new File("names/" + currentName);
+            ArrayList<String> names = new ArrayList<String>(Arrays.asList(attempts.list()));
+            listView.getItems().setAll(names);
+            //listView.getItems().addAll(names);
         }
     }
 
