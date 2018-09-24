@@ -22,6 +22,7 @@ public class recordingWorker extends SwingWorker<Void,Void> {
         //Records the attempt at saying the name.
         String cmd = "ffmpeg -f alsa -i default  -t 5 names/" + _currentName +
                 "/attempt" + _fileCount + "_" + _currentName +".wav";
+        System.out.println(cmd);
         ProcessBuilder builder = new ProcessBuilder("bash", "-c",
                 cmd);
         try{

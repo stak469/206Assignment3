@@ -112,15 +112,15 @@ public class nameView implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to report this file for bad quality?", ButtonType.YES, ButtonType.NO);
         alert.setHeaderText("");
         alert.showAndWait();
-
-
-        File errorlog = new File("names/error.txt");
-        try {
-            Writer output = new BufferedWriter(new FileWriter(errorlog, true));
-            output.append(currentName + "\n");
-            output.close();
-        } catch(IOException e) {
-            System.out.println("Error loading complaint log");
+        if (alert.getResult()==ButtonType.YES) {
+            File errorlog = new File("names/error.txt");
+            try {
+                Writer output = new BufferedWriter(new FileWriter(errorlog, true));
+                output.append(fileName + "\n");
+                output.close();
+            } catch (IOException e) {
+                System.out.println("Error loading complaint log");
+            }
         }
     }
 
