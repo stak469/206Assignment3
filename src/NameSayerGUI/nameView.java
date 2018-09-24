@@ -163,6 +163,8 @@ public class nameView implements Initializable {
             ArrayList<String> names = new ArrayList<String>(Arrays.asList(attempts.list()));
             listView.getItems().setAll(names);
             //listView.getItems().addAll(names);
+        } else {
+            listView.getItems().setAll("You have no attempts for this name");
         }
     }
 
