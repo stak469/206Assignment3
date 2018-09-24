@@ -28,26 +28,16 @@ import java.util.List;
 
 public class nameView implements Initializable {
 
-    // private NameList nameList;
     private String currentName;
     private String fileName;
     public Label nameLabel;
-
     public ImageView forward;
     public ImageView backward;
     public ImageView playIcon;
     public Label recordingLabel;
-
     public ListView<String> listView;
-
     private NameListModel namesModel;
 
-
-    /* TODO: add compare functionallity, ability to change mic level, TODO: add return to menu.
-
-
-
-     */
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,6 +47,8 @@ public class nameView implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 update(namesModel.next());
+                recordingLabel.setTextFill(Color.BLACK);
+                recordingLabel.setText("Record an attempt!");
             }
         });
 
@@ -65,7 +57,8 @@ public class nameView implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 update(namesModel.previous());
-
+                recordingLabel.setTextFill(Color.BLACK);
+                recordingLabel.setText("Record an attempt!");
             }
         });
 
@@ -98,11 +91,8 @@ public class nameView implements Initializable {
 
         //Use a swingworker to prevent the GUI from freezing when recording the attempt.
         new recordingWorker(currentName,fileCount, this).execute();
-        System.out.println("record clicked");
 
         getAttempts();
-        //recordingLabel.setTextFill(Color.GREEN);
-       // recordingLabel.setText("Recording Complete");
     }
 
     public void report() {
@@ -162,9 +152,8 @@ public class nameView implements Initializable {
             File attempts = new File("names/" + currentName);
             ArrayList<String> names = new ArrayList<String>(Arrays.asList(attempts.list()));
             listView.getItems().setAll(names);
-            //listView.getItems().addAll(names);
         } else {
-            listView.getItems().setAll("You have no attempts for this name");
+            listView.getItems().setAll("");
         }
     }
 
